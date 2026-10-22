@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="th" data-theme="light" data-font="sarabun" data-size="md" data-highlight="on">
+<head>
+  <meta charset="utf-8">
+  <title>ปกครอง Diary — สมุดบันทึกแนวคำวินิจฉัยศาลปกครองสูงสุด (เตรียมสอบ)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="เว็บแอปจัดเก็บและทบทวนคำพิพากษา/คำสั่งศาลปกครองสูงสุด จำแนกตามสารบัญหนังสือแนวคำวินิจฉัยของศาลปกครอง สำหรับเตรียมสอบ">
+  <link rel="stylesheet" href="colors_and_type.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<div class="page-flip" id="page-flip" aria-hidden="true"></div>
+
+<!-- =================== SIDEBAR (desktop full / mobile drawer) =================== -->
+<button class="hub-rail__hamburger" type="button" aria-label="เปิดเมนูนำทาง" id="rail-hamburger">
+  <i data-lucide="menu"></i>
+</button>
+<div class="hub-rail__backdrop" id="rail-backdrop" aria-hidden="true"></div>
+
+<aside class="hub-rail" aria-label="เมนูหลัก" id="hub-rail">
+  <div class="hub-rail__top">
+    <a class="hub-rail__brand" data-nav="home" aria-label="ปกครอง Diary — หน้าแรก">
+      <span class="hub-rail__logo"><i data-lucide="scale"></i></span>
+      <span class="hub-rail__brandname">
+        <span class="th">ปกครอง Diary</span>
+        <span class="en">Admin Law Prep</span>
+      </span>
+    </a>
+    <button class="hub-rail__toggle" type="button" aria-label="ย่อ/ขยายแถบเมนู" id="rail-toggle" title="ย่อ/ขยายแถบเมนู">
+      <span class="icon-collapse"><i data-lucide="chevrons-left"></i></span>
+      <span class="icon-expand"><i data-lucide="chevrons-right"></i></span>
+    </button>
+    <button class="hub-rail__theme" type="button" aria-label="สลับโหมดสีมืด/สว่าง" id="theme-toggle" title="สลับโหมดกระดาษ / โหมดกลางคืน">
+      <span class="icon-moon"><i data-lucide="moon"></i></span>
+      <span class="icon-sun"><i data-lucide="sun"></i></span>
+    </button>
+    <button class="hub-rail__close" type="button" aria-label="ปิดเมนู" id="rail-close">
+      <i data-lucide="x"></i>
+    </button>
+  </div>
+
+  <nav class="hub-rail__nav">
+    <div class="hub-rail__group">
+      <span class="hub-rail__grouphead">สมุดเตรียมสอบ</span>
+      <button class="hub-rail__item" type="button" data-nav="home" aria-current="page" data-label="หน้าแรก">
+        <span class="hub-rail__ico"><i data-lucide="home"></i></span>
+        <span class="hub-rail__label">หน้าแรก · ชั้นหนังสือ</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-nav="diary" data-label="คลังคำพิพากษา">
+        <span class="hub-rail__ico"><i data-lucide="book-open"></i></span>
+        <span class="hub-rail__label">คลังคำพิพากษา</span>
+        <span class="hub-rail__badge" id="nav-badge-total">1,596</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-nav="toc" data-label="สารบัญละเอียด">
+        <span class="hub-rail__ico"><i data-lucide="list-tree"></i></span>
+        <span class="hub-rail__label">สารบัญหนังสือ (645 หมวด)</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-nav="picks" data-label="เก็งข้อสอบ & โน้ต">
+        <span class="hub-rail__ico"><i data-lucide="star"></i></span>
+        <span class="hub-rail__label">เก็งข้อสอบ & โน้ตของฉัน</span>
+        <span class="hub-rail__badge" id="nav-badge-starred">0</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-nav="flashcards" data-label="โหมดทบทวนสอบ">
+        <span class="hub-rail__ico"><i data-lucide="layers"></i></span>
+        <span class="hub-rail__label">โหมดทบทวน Flashcards</span>
+      </button>
+    </div>
+
+    <div class="hub-rail__group hub-rail__group--page">
+      <span class="hub-rail__grouphead">ทางลัดตามสารบัญ</span>
+      <button class="hub-rail__item" type="button" data-quick-filter="part-1" data-label="ภาค ๑ ภาคทั่วไป">
+        <span class="hub-rail__ico"><i data-lucide="compass"></i></span>
+        <span class="hub-rail__label">ภาค ๑ · ภาคทั่วไป (5 บท)</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-quick-filter="part-2" data-label="ภาค ๒ ภาคเฉพาะ">
+        <span class="hub-rail__ico"><i data-lucide="library"></i></span>
+        <span class="hub-rail__label">ภาค ๒ · ภาคเฉพาะ (34 บท)</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-quick-filter="ga" data-label="ประชุมใหญ่">
+        <span class="hub-rail__ico"><i data-lucide="award"></i></span>
+        <span class="hub-rail__label">คำวินิจฉัยประชุมใหญ่</span>
+      </button>
+      <button class="hub-rail__item" type="button" data-quick-filter="custom" data-label="ที่บันทึกเพิ่มเอง">
+        <span class="hub-rail__ico"><i data-lucide="pen-tool"></i></span>
+        <span class="hub-rail__label">ที่ฉันบันทึกเพิ่มเอง</span>
+        <span class="hub-rail__badge" id="nav-badge-custom">0</span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="hub-rail__foot">
+    <button class="hub-rail__join" type="button" id="btn-open-add-rail">
+      <i data-lucide="plus-circle"></i>
+      <span class="hub-rail__joinlabel">บันทึกคำพิพากษาใหม่</span>
+    </button>
+    <div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">
+      <button class="hub-btn hub-btn--xs" type="button" id="btn-export-json" title="ส่งออกข้อมูลทั้งหมดเป็นไฟล์ JSON">
+        <i data-lucide="download"></i> Export
+      </button>
+      <button class="hub-btn hub-btn--xs" type="button" id="btn-import-json" title="นำเข้าข้อมูลจากไฟล์ JSON">
+        <i data-lucide="upload"></i> Import
+      </button>
+      <input type="file" id="input-import-file" accept=".json" style="display:none">
+    </div>
+    <span class="hub-rail__version">รวมแนวคำวินิจฉัยศาลปกครอง</span>
+  </div>
+</aside>
+
+<!-- =================== MOBILE DOCK =================== -->
+<nav class="hub-dock" aria-label="เมนูด่วนมือถือ">
+  <button class="hub-dock__item" type="button" data-nav="home" aria-current="page">
+    <span class="hub-dock__icon"><i data-lucide="home"></i></span>
+    <span class="hub-dock__label">หน้าแรก</span>
+  </button>
+  <button class="hub-dock__item" type="button" data-nav="diary">
+    <span class="hub-dock__icon"><i data-lucide="book-open"></i></span>
+    <span class="hub-dock__label">คำพิพากษา</span>
+  </button>
+  <button class="hub-dock__item" type="button" data-nav="toc">
+    <span class="hub-dock__icon"><i data-lucide="list-tree"></i></span>
+    <span class="hub-dock__label">สารบัญ</span>
+  </button>
+  <button class="hub-dock__item" type="button" data-nav="picks">
+    <span class="hub-dock__icon"><i data-lucide="star"></i></span>
+    <span class="hub-dock__label">เก็งสอบ</span>
+  </button>
+  <button class="hub-dock__item" type="button" data-nav="flashcards">
+    <span class="hub-dock__icon"><i data-lucide="layers"></i></span>
+    <span class="hub-dock__label">ทบทวน</span>
+  </button>
+</nav>
+
+<!-- =================== STICKY READING COMFORT BAR =================== -->
+<header class="comfort-bar" aria-label="แถบปรับฟอนต์และการอ่าน">
+  <div class="comfort-bar__inner">
+    <div class="comfort-bar__left">
+      <span class="comfort-bar__label"><i data-lucide="type"></i> ฟอนต์อ่านง่าย:</span>
+      <div class="comfort-group" role="group" aria-label="เลือกฟอนต์">
+        <button type="button" class="comfort-btn is-active" data-set-font="sarabun">Sarabun (มีหัว)</button>
+        <button type="button" class="comfort-btn" data-set-font="plex">IBM Plex (ถนอมสายตา)</button>
+        <button type="button" class="comfort-btn" data-set-font="noto">Noto Sans (ไม่มีหัว)</button>
+      </div>
+      <div class="comfort-group" role="group" aria-label="ขนาดตัวอักษร">
+        <button type="button" class="comfort-btn" data-set-size="sm">A-</button>
+        <button type="button" class="comfort-btn is-active" data-set-size="md">A</button>
+        <button type="button" class="comfort-btn" data-set-size="lg">A+</button>
+        <button type="button" class="comfort-btn" data-set-size="xl">A++</button>
+      </div>
+      <button type="button" class="hub-btn hub-btn--xs" id="btn-toggle-highlight" title="เปิด/ปิดการไฮไลต์คำสำคัญทางกฎหมายอัตโนมัติ">
+        <i data-lucide="highlighter"></i> <span>ไฮไลต์คำวินิจฉัย: เปิด</span>
+      </button>
+    </div>
+    <div class="comfort-bar__right">
+      <a href="iphone/index.html" class="hub-btn hub-btn--xs" title="เปิดเว็บแอปเวอร์ชันสำหรับ iPhone">
+        <i data-lucide="smartphone"></i> เวอร์ชัน iPhone
+      </a>
+      <button type="button" class="hub-btn hub-btn--xs" id="btn-upload-pdf-top" title="อัปโหลดไฟล์ PDF รวมแนวคำวินิจฉัยเล่มอื่นๆ เพื่อสกัดคำพิพากษาเข้าคลังอัตโนมัติ">
+        <i data-lucide="file-up"></i> อัปโหลด PDF เพิ่มเข้าคลัง
+      </button>
+      <input type="file" id="input-upload-pdf" accept=".pdf" multiple style="display:none">
+      <button type="button" class="hub-btn hub-btn--xs hub-btn--honey" id="btn-open-add-top">
+        <i data-lucide="plus"></i> บันทึกคำพิพากษาเพิ่ม
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="top" class="hub-page">
+
+  <!-- =====================================================================
+       VIEW 1: HOME HUB (longtundiary.com style)
+       ===================================================================== -->
+  <div id="view-home" class="app-view">
+    <section class="hub-hero">
+      <div class="hub-hero__copy">
+        <span class="hub-eyebrow"><i data-lucide="book-marked"></i> สมุดบันทึกเตรียมสอบกฎหมายปกครอง · ศาลปกครองสูงสุด</span>
+        <h1 class="hub-hero__title">คลังแนวคำวินิจฉัย <em>Diary.</em></h1>
+        <p class="hub-hero__sub">
+          รวบรวมและจำแนกคำพิพากษาและคำสั่งศาลปกครองสูงสุดครบทั้ง <strong>๒ ภาค ๓๙ บท ๖๓๒ หัวข้อย่อย</strong> ตามโครงสร้างสารบัญมาตรฐาน <em>หนังสือแนวคำวินิจฉัยของศาลปกครอง</em> พร้อมระบบอัปโหลดไฟล์ PDF เล่มใหม่เข้าคลังอัตโนมัติ บันทึกคำพิพากษาเพิ่ม จดโน้ตสรุปหลักกฎหมาย ปักหมุดเก็งข้อสอบ และทบทวนด้วย Flashcards
+        </p>
+        <div class="hub-hero__cta">
+          <button type="button" class="hub-btn hub-btn--lg hub-btn--primary" data-nav="diary">
+            เปิดคลังคำพิพากษาทั้งหมด →
+          </button>
+          <button type="button" class="hub-btn hub-btn--lg hub-btn--honey" id="btn-hero-add">
+            <i data-lucide="plus-circle"></i> บันทึกคำพิพากษาใหม่
+          </button>
+          <button type="button" class="hub-btn hub-btn--lg" id="btn-hero-upload-pdf">
+            <i data-lucide="file-up"></i> อัปโหลดไฟล์ PDF เล่มอื่นเพิ่ม
+          </button>
+        </div>
+      </div>
+
+      <!-- Exam Study Progress Ledger -->
+      <div class="hero-ledger">
+        <span class="hero-ledger__tab">STUDY LEDGER · ADMIN LAW</span>
+        <div class="hero-ledger__head">
+          <div>
+            <h2 class="hero-ledger__title">สมุดติดตามการอ่านสอบ</h2>
+            <span class="hero-ledger__sub">คลิกที่ตัวเลขเพื่อกรองดูรายการแต่ละสถานะ</span>
+          </div>
+          <span class="hub-stamp hub-stamp--sage">๒๕ ปี ศาลปกครอง</span>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat" data-stat-filter="all">
+            <div class="hero-stat__num" id="stat-total">1,596</div>
+            <div class="hero-stat__label"><i data-lucide="book-open"></i> คำวินิจฉัยทั้งหมดในคลัง</div>
+          </div>
+          <div class="hero-stat" data-stat-filter="starred">
+            <div class="hero-stat__num" id="stat-starred">0</div>
+            <div class="hero-stat__label"><i data-lucide="star"></i> ปักหมุดเก็งข้อสอบ ⭐</div>
+          </div>
+          <div class="hero-stat" data-stat-filter="read">
+            <div class="hero-stat__num" id="stat-read">0</div>
+            <div class="hero-stat__label"><i data-lucide="check-circle-2"></i> อ่านเข้าใจแล้ว ✅</div>
+          </div>
+          <div class="hero-stat" data-stat-filter="review">
+            <div class="hero-stat__num" id="stat-review">0</div>
+            <div class="hero-stat__label"><i data-lucide="rotate-ccw"></i> ต้องทบทวนซ้ำ 📌</div>
+          </div>
+        </div>
+        <div class="hero-progress">
+          <div class="hero-progress__bar">
+            <div class="hero-progress__fill" id="stat-progress-bar"></div>
+          </div>
+          <div class="hero-progress__meta">
+            <span id="stat-progress-text">ความคืบหน้าการอ่าน: 0 / 470 รายการ (0%)</span>
+            <span id="stat-notes-count">โน้ตที่จดไว้: 0 รายการ</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- START HERE: 3 EXAM PREP PATHS -->
+    <section id="start-here" class="hub-section">
+      <span class="hub-page-num">หน้า ๑</span>
+      <div class="hub-section__head">
+        <h2 class="hub-section__title">Start here · เริ่มต้นเตรียมสอบ</h2>
+        <span class="hub-section__sub">three exam paths · เลือกเส้นทางอ่านสอบตามโครงสร้างสารบัญ</span>
+      </div>
+      <div class="hub-paths" id="paths-grid">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+
+    <!-- THE LIBRARY: 39 CHAPTERS SHELF -->
+    <section id="library" class="hub-section">
+      <span class="hub-page-num">หน้า ๒</span>
+      <div class="hub-section__head">
+        <h2 class="hub-section__title">The Library · ชั้นหนังสือแยกตามบท</h2>
+        <span class="hub-section__sub">จำแนกตามสารบัญหนังสือแนวคำวินิจฉัยของศาลปกครอง (ครบ ๓๙ บท)</span>
+      </div>
+
+      <div class="shelf-toolbar">
+        <div class="shelf-tabs">
+          <button type="button" class="hub-chip is-active" data-shelf-filter="all">ทั้งหมด (39 บท)</button>
+          <button type="button" class="hub-chip" data-shelf-filter="part-1">ภาค ๑ ภาคทั่วไป (5 บท)</button>
+          <button type="button" class="hub-chip" data-shelf-filter="part-2">ภาค ๒ ภาคเฉพาะเรื่อง (34 บท)</button>
+        </div>
+        <input type="search" id="shelf-search" class="hub-filter-input" style="max-width:320px;" placeholder="ค้นหาชื่อบท เช่น ละเมิด, สัญญา, วินัย, ที่ดิน...">
+      </div>
+
+      <div id="shelf-part1-wrap">
+        <h3 class="hub-shelf__hd"><i data-lucide="compass"></i> ภาค ๑ · ภาคทั่วไป (บทที่ ๑ – บทที่ ๕)</h3>
+        <div class="hub-shelf" id="shelf-part1"></div>
+      </div>
+
+      <div id="shelf-part2-wrap">
+        <h3 class="hub-shelf__hd"><i data-lucide="library"></i> ภาค ๒ · แนวคำวินิจฉัยของศาลปกครองเฉพาะเรื่อง (บทที่ ๑ – บทที่ ๓๔)</h3>
+        <div class="hub-shelf" id="shelf-part2"></div>
+      </div>
+    </section>
+
+    <!-- INDEX TABS: POPULAR EXAM TOPICS -->
+    <section id="topics" class="hub-section">
+      <span class="hub-page-num">หน้า ๓</span>
+      <div class="hub-section__head">
+        <h2 class="hub-section__title">Index Tabs · ประเด็นออกสอบยอดฮิต</h2>
+        <span class="hub-section__sub">คลิกเพื่อกรองคำพิพากษาตามคำสำคัญและหัวข้อที่ออกสอบบ่อย</span>
+      </div>
+      <div class="hub-chips" id="topic-chips"></div>
+    </section>
+  </div>
+
+  <!-- =====================================================================
+       VIEW 2: DIARY / ARCHIVE (คลังคำพิพากษาและการค้นหาละเอียด)
+       ===================================================================== -->
+  <div id="view-diary" class="app-view" style="display:none;">
+    <section class="hub-section hub-section--first">
+      <div class="hub-section__head" style="justify-content:space-between; align-items:flex-end;">
+        <div>
+          <span class="hub-eyebrow"><i data-lucide="book-open"></i> คลังคำพิพากษาและคำสั่งศาลปกครองสูงสุด</span>
+          <h1 class="hub-section__title" id="diary-heading">คลังคำพิพากษาทั้งหมด</h1>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <div class="comfort-group" role="group" aria-label="รูปแบบการแสดงผล">
+            <button type="button" class="comfort-btn is-active" data-view-mode="card">การ์ดอ่านสอบละเอียด</button>
+            <button type="button" class="comfort-btn" data-view-mode="compact">ตารางสารบบแบบย่อ</button>
+          </div>
+          <button type="button" class="hub-btn hub-btn--sm hub-btn--honey" id="btn-diary-add">
+            <i data-lucide="plus"></i> เพิ่มคำพิพากษาในหมวดนี้
+          </button>
+        </div>
+      </div>
+
+      <!-- Multi-level TOC & Exam Filter Bar -->
+      <div class="hub-filters">
+        <div class="hub-filters__row">
+          <input type="search" id="filter-q" class="hub-filter-input" placeholder="ค้นหาคำสำคัญ, เลขคำพิพากษา/คำสั่ง (เช่น 389/2568, อ. 1115/2567), มาตรากฎหมาย, หรือโน้ต...">
+          <select id="filter-part" class="hub-filter-select" aria-label="กรองตามภาค">
+            <option value="">ทุกภาค (ภาค ๑ และ ภาค ๒)</option>
+            <option value="part-1">ภาค ๑ · ภาคทั่วไป</option>
+            <option value="part-2">ภาค ๒ · ภาคเฉพาะเรื่อง</option>
+          </select>
+          <select id="filter-chapter" class="hub-filter-select" aria-label="กรองตามบท">
+            <option value="">ทุกบท (๓๙ บทตามสารบัญ)</option>
+          </select>
+        </div>
+        <div class="hub-filters__row">
+          <select id="filter-section" class="hub-filter-select" style="max-width:460px; flex:1 1 320px;" aria-label="กรองตามหมวดย่อยในสารบัญ">
+            <option value="">ทุกหมวดหมู่ย่อยในสารบัญ (เลือกบทเพื่อกรองละเอียด)</option>
+          </select>
+          <select id="filter-type" class="hub-filter-select" aria-label="กรองตามประเภทคำวินิจฉัย">
+            <option value="">ทุกประเภทคำวินิจฉัย</option>
+            <option value="คำพิพากษา">คำพิพากษาศาลปกครองสูงสุด</option>
+            <option value="คำสั่ง">คำสั่งศาลปกครองสูงสุด</option>
+            <option value="ga">ประชุมใหญ่ตุลาการศาลปกครองสูงสุด</option>
+            <option value="custom">ที่ฉันบันทึกเพิ่มเอง</option>
+          </select>
+          <select id="filter-status" class="hub-filter-select" aria-label="กรองตามสถานะเตรียมสอบ">
+            <option value="">ทุกสถานะเตรียมสอบ</option>
+            <option value="starred">⭐ เก็งข้อสอบ (ปักหมุด)</option>
+            <option value="review">📌 ต้องทบทวนซ้ำ</option>
+            <option value="read">✅ อ่านเข้าใจแล้ว</option>
+            <option value="unread">⏳ ยังไม่ได้อ่าน</option>
+            <option value="has_note">📝 มีโน้ตสรุปของฉัน</option>
+          </select>
+          <span class="hub-filter-count" id="filter-count">แสดง 1,596 รายการ</span>
+        </div>
+      </div>
+
+      <div class="hub-active-filters" id="active-filters"></div>
+
+      <div class="rulings-list" id="rulings-container"></div>
+
+      <div style="display:flex; justify-content:center; padding:28px 0 0;">
+        <button type="button" id="btn-load-more" class="hub-btn hub-btn--md">แสดงเพิ่มเติม (+30 รายการ)</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- =====================================================================
+       VIEW 3: TOC EXPLORER (สารบัญหนังสือครบ 632 หัวข้อย่อย)
+       ===================================================================== -->
+  <div id="view-toc" class="app-view" style="display:none;">
+    <section class="hub-section hub-section--first">
+      <div class="hub-section__head" style="justify-content:space-between; align-items:flex-end;">
+        <div>
+          <span class="hub-eyebrow"><i data-lucide="list-tree"></i> โครงสร้างสารบัญตามหนังสือแนวคำวินิจฉัยของศาลปกครอง</span>
+          <h1 class="hub-section__title">สารบัญจำแนกประเภทคดีปกครอง (ครบ ๖๓๒ หัวข้อ)</h1>
+        </div>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <input type="search" id="toc-search" class="hub-filter-input" style="min-width:260px;" placeholder="ค้นหาหัวข้อในสารบัญ...">
+          <button type="button" class="hub-btn hub-btn--sm" id="btn-toc-expand-all">ขยายทุกบท</button>
+          <button type="button" class="hub-btn hub-btn--sm" id="btn-toc-collapse-all">ย่อทุกบท</button>
+        </div>
+      </div>
+      <p style="margin-top:-10px; margin-bottom:22px;">
+        คลิกที่ชื่อหัวข้อเพื่อเปิดอ่านคำพิพากษาในหมวดนั้น หรือกดปุ่ม <strong>+ เพิ่มฎีกา</strong> หลังหัวข้อใดก็ได้เพื่อจัดเก็บคำพิพากษาเพิ่มเติมลงในหมวดหมู่ตามสารบัญได้ทันที
+      </p>
+      <div class="toc-container" id="toc-tree-container"></div>
+    </section>
+  </div>
+
+  <!-- =====================================================================
+       VIEW 4: MY EXAM PICKS & NOTES (สมุดเก็งข้อสอบและโน้ตย่อของฉัน)
+       ===================================================================== -->
+  <div id="view-picks" class="app-view" style="display:none;">
+    <section class="hub-section hub-section--first">
+      <div class="hub-section__head" style="justify-content:space-between; align-items:flex-end;">
+        <div>
+          <span class="hub-eyebrow"><i data-lucide="star"></i> สมุดคัดเน้นๆ สำหรับทบทวนโค้งสุดท้ายก่อนสอบ</span>
+          <h1 class="hub-section__title">เก็งข้อสอบ & บันทึกช่วยจำของฉัน</h1>
+        </div>
+        <div class="shelf-tabs" id="picks-tabs">
+          <button type="button" class="hub-chip is-active" data-picks-tab="starred">⭐ เก็งข้อสอบ</button>
+          <button type="button" class="hub-chip" data-picks-tab="review">📌 ต้องทบทวนซ้ำ</button>
+          <button type="button" class="hub-chip" data-picks-tab="notes">📝 มีโน้ตสรุปของฉัน</button>
+          <button type="button" class="hub-chip" data-picks-tab="ga">🏛️ ประชุมใหญ่ทั้งหมด</button>
+          <button type="button" class="hub-chip" data-picks-tab="custom">✍️ ที่บันทึกเพิ่มเอง</button>
+        </div>
+      </div>
+      <div class="rulings-list" id="picks-container"></div>
+    </section>
+  </div>
+
+  <!-- =====================================================================
+       VIEW 5: FLASHCARDS / ACTIVE RECALL (โหมดทบทวนสอบ)
+       ===================================================================== -->
+  <div id="view-flashcards" class="app-view" style="display:none;">
+    <section class="hub-section hub-section--first">
+      <div class="hub-section__head" style="justify-content:space-between; align-items:flex-end;">
+        <div>
+          <span class="hub-eyebrow"><i data-lucide="layers"></i> Active Recall · ทดสอบความแม่นยำหลักกฎหมายและแนวคำวินิจฉัย</span>
+          <h1 class="hub-section__title">โหมดการ์ดทบทวนสอบ (Flashcards)</h1>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <select id="fc-deck-select" class="hub-filter-select">
+            <option value="all">ทุกหมวดหมู่ (สุ่มจากทั้งเล่ม)</option>
+            <option value="part-1">เฉพาะภาค ๑ · ภาคทั่วไป (ตรวจคำฟ้อง/เงื่อนไข)</option>
+            <option value="part-2">เฉพาะภาค ๒ · ภาคเฉพาะเรื่อง</option>
+            <option value="starred">เฉพาะที่ปักหมุด ⭐ เก็งข้อสอบ</option>
+            <option value="review">เฉพาะที่ติดป้าย 📌 ต้องทบทวนซ้ำ</option>
+            <option value="ga">เฉพาะคำวินิจฉัยประชุมใหญ่</option>
+          </select>
+          <button type="button" class="hub-btn hub-btn--sm" id="btn-fc-shuffle">
+            <i data-lucide="shuffle"></i> สลับการ์ดใหม่
+          </button>
+        </div>
+      </div>
+
+      <div class="flashcard-wrap" id="flashcard-stage">
+        <!-- Rendered by app.js -->
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- =================== MODAL: ADD / EDIT RULING =================== -->
+<div class="modal-backdrop" id="modal-ruling" role="dialog" aria-modal="true" aria-labelledby="modal-ruling-title">
+  <div class="modal-card">
+    <div class="modal-card__head">
+      <div>
+        <span class="hub-eyebrow" style="margin:0;">จัดเก็บคำพิพากษาเข้าสมุดเตรียมสอบ</span>
+        <h2 id="modal-ruling-title" style="margin:2px 0 0; font-size:24px;">บันทึกคำพิพากษา / คำสั่งศาลปกครองใหม่</h2>
+      </div>
+      <button type="button" class="hub-rail__close" style="display:inline-flex;" id="btn-close-modal">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <form id="form-ruling" class="form-grid">
+      <input type="hidden" id="form-id" value="">
+
+      <div class="form-field">
+        <label for="form-part">๑. เลือกภาคตามสารบัญ *</label>
+        <select id="form-part" class="form-select" required>
+          <option value="part-1">ภาค ๑ · ภาคทั่วไป</option>
+          <option value="part-2">ภาค ๒ · แนวคำวินิจฉัยเฉพาะเรื่อง</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="form-chapter">๒. เลือกบทที่ *</label>
+        <select id="form-chapter" class="form-select" required></select>
+      </div>
+
+      <div class="form-field form-field--full">
+        <label for="form-section">๓. เลือกหมวดหมู่ย่อยตามสารบัญ *</label>
+        <select id="form-section" class="form-select" required></select>
+      </div>
+
+      <div class="form-field">
+        <label for="form-type">ประเภทคำวินิจฉัย *</label>
+        <select id="form-type" class="form-select" required>
+          <option value="คำพิพากษา">คำพิพากษาศาลปกครองสูงสุด</option>
+          <option value="คำสั่ง">คำสั่งศาลปกครองสูงสุด</option>
+          <option value="หลักการ/โครงสร้าง">หลักกฎหมาย / บันทึกทฤษฎี</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="form-citation">เลขที่คำพิพากษา / คำสั่ง *</label>
+        <input type="text" id="form-citation" class="form-input" placeholder="เช่น คำพิพากษาศาลปกครองสูงสุดที่ อ. 1234/2568" required>
+      </div>
+
+      <div class="form-field">
+        <label for="form-source">แหล่งที่มา / หมายเหตุอ้างอิง</label>
+        <input type="text" id="form-source" class="form-input" value="บันทึกเพิ่มเติม" placeholder="เช่น คำบรรยายเนติฯ, สมุดเก็งสอบ, แนวคำวินิจฉัยศาลปกครอง">
+      </div>
+
+      <div class="form-field" style="justify-content:flex-end;">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; padding:10px 0;">
+          <input type="checkbox" id="form-ga" style="width:18px; height:18px; accent-color:var(--forest-900);">
+          <span>เป็นคำวินิจฉัยของ <strong>ที่ประชุมใหญ่ตุลาการในศาลปกครองสูงสุด</strong></span>
+        </label>
+      </div>
+
+      <div class="form-field form-field--full">
+        <label for="form-title">หัวข้อประเด็นวินิจฉัย (สรุปสั้นๆ สำหรับกวาดตาทบทวน) *</label>
+        <input type="text" id="form-title" class="form-input" placeholder="เช่น สัญญาจ้างเหมาบริการรักษาความปลอดภัย ไม่เป็นสัญญาทางปกครอง" required>
+      </div>
+
+      <div class="form-field form-field--full">
+        <label for="form-principle">หลักกฎหมาย / แนวคำวินิจฉัยสำคัญ (แสดงในกล่องไฮไลต์สีเหลืองอำพัน) *</label>
+        <textarea id="form-principle" class="form-textarea" placeholder="สรุปหลักกฎหมายหรือผลคำวินิจฉัย เช่น ดังนั้น เมื่อสัญญาพิพาทไม่มีลักษณะเป็นการจัดทำบริการสาธารณะ จึงมิใช่สัญญาทางปกครอง..." required></textarea>
+      </div>
+
+      <div class="form-field form-field--full">
+        <label for="form-facts">ข้อเท็จจริงและเหตุผลแห่งคำวินิจฉัยฉบับเต็ม</label>
+        <textarea id="form-facts" class="form-textarea" style="min-height:150px;" placeholder="รายละเอียดข้อเท็จจริง คำฟ้อง และเหตุผลของศาลปกครองสูงสุด..."></textarea>
+      </div>
+
+      <div class="form-field form-field--full">
+        <label for="form-laws">กฎหมาย / มาตราที่เกี่ยวข้อง (คั่นด้วยเครื่องหมายจุลภาค ,)</label>
+        <input type="text" id="form-laws" class="form-input" placeholder="เช่น มาตรา ๓ แห่ง พ.ร.บ. จัดตั้งศาลปกครองฯ, มาตรา ๙ วรรคหนึ่ง (๑)">
+      </div>
+
+      <div class="form-field form-field--full">
+        <label for="form-note">📝 บันทึกช่วยจำเตรียมสอบของฉัน (ข้อสังเกต / จุดหลอกในข้อสอบ)</label>
+        <textarea id="form-note" class="form-textarea" style="min-height:80px;" placeholder="จดเทคนิคจำสอบ เปรียบเทียบฎีกา หรือจุดที่มักออกข้อสอบ..."></textarea>
+      </div>
+
+      <div class="form-field form-field--full" style="display:flex; flex-direction:row; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; padding-top:8px; border-top:1.5px dashed var(--sage-300);">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="checkbox" id="form-starred" style="width:18px; height:18px; accent-color:var(--accent-honey);">
+          <span>⭐ ปักหมุดเป็นรายการ <strong>เก็งข้อสอบ</strong> ทันที</span>
+        </label>
+        <div style="display:flex; gap:10px;">
+          <button type="button" class="hub-btn hub-btn--sm hub-btn--ghost" id="btn-cancel-modal">ยกเลิก</button>
+          <button type="submit" class="hub-btn hub-btn--md hub-btn--primary">
+            <i data-lucide="save"></i> บันทึกคำพิพากษา
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- =================== FOOTER =================== -->
+<footer class="hub-foot">
+  <div class="hub-foot__cols">
+    <div>
+      <span class="hub-foot__brand">ปกครอง Diary</span>
+      <p style="color:var(--foot-ink); opacity:0.85; font-size:15px; margin-top:6px;">
+        สมุดบันทึกและคลังแนวคำวินิจฉัยศาลปกครองสูงสุดสำหรับการเตรียมสอบ จำแนกหมวดหมู่ตามโครงสร้างสารบัญหนังสือแนวคำวินิจฉัยของศาลปกครอง (ครบ ๒ ภาค ๓๙ บท ๖๓๒ หมวดย่อย)
+      </p>
+    </div>
+    <div>
+      <span class="hub-foot__hd">เมนูลัด</span>
+      <a data-nav="home">หน้าแรก · ชั้นหนังสือ</a>
+      <a data-nav="diary">คลังคำพิพากษาทั้งหมด</a>
+      <a data-nav="toc">สารบัญละเอียด 632 หมวด</a>
+      <a data-nav="flashcards">โหมดทบทวน Flashcards</a>
+    </div>
+    <div>
+      <span class="hub-foot__hd">หมวดหมู่หลัก</span>
+      <a data-quick-filter="part-1">ภาค ๑ · ภาคทั่วไป (5 บท)</a>
+      <a data-quick-filter="part-2">ภาค ๒ · ภาคเฉพาะ (34 บท)</a>
+      <a data-quick-filter="ga">คำวินิจฉัยประชุมใหญ่</a>
+      <a data-nav="picks">สมุดเก็งข้อสอบของฉัน</a>
+    </div>
+    <div>
+      <span class="hub-foot__hd">จัดการคลังข้อมูล</span>
+      <a id="foot-upload-pdf">อัปโหลดไฟล์ PDF เล่มอื่นเพิ่มเข้าคลัง</a>
+      <a id="foot-rescan-pdf">สแกนไฟล์ PDF ในโฟลเดอร์ใหม่</a>
+      <a id="foot-export">สำรองข้อมูลสมุดบันทึก (.json)</a>
+    </div>
+  </div>
+  <div class="hub-foot__bar">
+    <span>© 2026 · ปกครอง Diary — ออกแบบเพื่อการอ่านเตรียมสอบอย่างสบายตา</span>
+    <span>คลังรวมแนวคำวินิจฉัยของศาลปกครอง (สำนักงานศาลปกครอง)</span>
+  </div>
+</footer>
+
+<script src="data/vol14_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

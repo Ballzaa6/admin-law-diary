@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#889878"/>
+  <rect x="36" y="36" width="440" height="440" rx="86" fill="#faf8ee" stroke="#304828" stroke-width="18"/>
+  <path d="M132 76v360" stroke="#a0a890" stroke-width="10" stroke-dasharray="14 14"/>
+  <g transform="translate(276, 230)" fill="none" stroke="#304828" stroke-width="18" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M0 -95v175"/>
+    <path d="M-85 -55h170"/>
+    <path d="M-85 -55l-32 75h64l-32 -75z" fill="#d6a64a"/>
+    <path d="M85 -55l-32 75h64l-32 -75z" fill="#cfd5c0"/>
+    <path d="M-55 80h110"/>
+  </g>
+  <text x="276" y="388" text-anchor="middle" font-family="sans-serif" font-weight="800" font-size="48" fill="#304828">ปกครอง</text>
+</svg>

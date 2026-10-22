@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="th" data-theme="light" data-font="sarabun" data-size="md" data-highlight="on">
+<head>
+  <meta charset="utf-8">
+  <title>ปกครอง Diary · iPhone Edition</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="ปกครอง Diary">
+  <meta name="theme-color" content="#f0f0e0" id="meta-theme-color">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+</head>
+<body>
+
+<div class="iphone-shell" id="iphone-shell">
+
+  <!-- =================== STICKY iOS TOP NAVBAR =================== -->
+  <header class="ios-navbar">
+    <div class="ios-navbar__row">
+      <div class="ios-brand" data-tab-jump="home" style="cursor:pointer;">
+        <span class="ios-brand__logo"><i data-lucide="scale"></i></span>
+        <div class="ios-brand__text">
+          <span class="ios-brand__title">ปกครอง Diary</span>
+          <span class="ios-brand__sub" id="navbar-subtitle">iPhone Exam Ledger</span>
+        </div>
+      </div>
+
+      <div class="ios-navbar__actions">
+        <button type="button" class="ios-icon-btn" id="btn-open-aa" title="ปรับฟอนต์ ขนาดตัวอักษร และโหมดสี">
+          <span>Aa</span>
+        </button>
+        <button type="button" class="ios-icon-btn ios-icon-btn--honey" id="btn-open-add" title="บันทึกคำพิพากษาใหม่">
+          <i data-lucide="plus"></i>
+          <span>จดเพิ่ม</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       TAB 1: HOME (ชั้นหนังสือ & สมุดติดตามการอ่านสอบ)
+       ===================================================================== -->
+  <main id="view-home" class="ios-view is-active">
+
+    <!-- Study Progress Widget -->
+    <section class="ledger-widget">
+      <div class="ledger-widget__top">
+        <h1 class="ledger-widget__title">สมุดติดตามอ่านสอบ</h1>
+        <span class="ledger-widget__stamp" id="home-progress-pct">อ่านแล้ว 0%</span>
+      </div>
+      <div class="ledger-stats-grid">
+        <div class="ledger-stat-box" data-quick-status="">
+          <div class="ledger-stat-box__num" id="stat-all">1,596</div>
+          <div class="ledger-stat-box__lbl">ทั้งหมด</div>
+        </div>
+        <div class="ledger-stat-box" data-quick-status="starred">
+          <div class="ledger-stat-box__num" id="stat-starred">0</div>
+          <div class="ledger-stat-box__lbl">⭐ เก็งสอบ</div>
+        </div>
+        <div class="ledger-stat-box" data-quick-status="read">
+          <div class="ledger-stat-box__num" id="stat-read">0</div>
+          <div class="ledger-stat-box__lbl">✅ อ่านแล้ว</div>
+        </div>
+        <div class="ledger-stat-box" data-quick-status="review">
+          <div class="ledger-stat-box__num" id="stat-review">0</div>
+          <div class="ledger-stat-box__lbl">📌 ทบทวน</div>
+        </div>
+      </div>
+      <div class="ledger-bar">
+        <div class="ledger-bar__fill" id="stat-bar-fill"></div>
+      </div>
+      <div class="ledger-bar__meta">
+        <span id="stat-read-detail">อ่านเข้าใจแล้ว 0 รายการ</span>
+        <span id="stat-note-detail">โน้ตสรุป 0 รายการ</span>
+      </div>
+    </section>
+
+    <!-- Swipeable Exam Paths -->
+    <section>
+      <div class="section-hd">
+        <h2 class="section-hd__title">เริ่มต้นเตรียมสอบ</h2>
+        <span class="section-hd__sub">ปัดซ้าย-ขวา →</span>
+      </div>
+      <div class="paths-scroll">
+        <div class="path-mini-card" data-path-action="part-1">
+          <span class="path-mini-card__tag">PATH 01 · ภาค ๑ (๕ บท)</span>
+          <h3 class="path-mini-card__title">ตรวจคำฟ้อง & เงื่อนไขฟ้องคดี</h3>
+          <p class="path-mini-card__desc">หน่วยงาน/เจ้าหน้าที่ของรัฐ อำนาจศาลปกครอง และเงื่อนไขการฟ้องคดี</p>
+        </div>
+        <div class="path-mini-card path-mini-card--sage" data-path-action="part-2">
+          <span class="path-mini-card__tag">PATH 02 · ภาค ๒ (๓๔ บท)</span>
+          <h3 class="path-mini-card__title">แนวคำวินิจฉัยเฉพาะเรื่อง</h3>
+          <p class="path-mini-card__desc">ละเมิดทางปกครอง สัญญาทางปกครอง พัสดุ วินัยข้าราชการ ที่ดิน ฯลฯ</p>
+        </div>
+        <div class="path-mini-card" data-path-action="ga">
+          <span class="path-mini-card__tag">PATH 03 · คัดเน้นออกสอบ</span>
+          <h3 class="path-mini-card__title">คำวินิจฉัยประชุมใหญ่ 🏛️</h3>
+          <p class="path-mini-card__desc">บรรทัดฐานสำคัญของที่ประชุมใหญ่ตุลาการในศาลปกครองสูงสุด</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Topic Chips -->
+    <section>
+      <div class="section-hd">
+        <h2 class="section-hd__title">ประเด็นออกสอบยอดฮิต</h2>
+        <span class="section-hd__sub">แตะเพื่อกรองฎีกา</span>
+      </div>
+      <div class="chip-row" id="home-topic-chips"></div>
+    </section>
+
+    <!-- 39 Chapters Bookshelf -->
+    <section>
+      <div class="section-hd">
+        <h2 class="section-hd__title">ชั้นหนังสือแยกตามบท (๓๙ บท)</h2>
+      </div>
+      <div class="ios-segmented" style="margin-bottom:10px;">
+        <button type="button" class="ios-seg-btn is-active" data-shelf-part="all">ทั้งหมด (39)</button>
+        <button type="button" class="ios-seg-btn" data-shelf-part="part-1">ภาค ๑ (5 บท)</button>
+        <button type="button" class="ios-seg-btn" data-shelf-part="part-2">ภาค ๒ (34 บท)</button>
+      </div>
+      <div class="ios-search-box" style="margin-bottom:10px;">
+        <i data-lucide="search"></i>
+        <input type="search" id="shelf-q" class="ios-search-input" placeholder="ค้นหาชื่อบท เช่น ละเมิด, สัญญา, วินัย...">
+      </div>
+      <div class="chapter-list" id="home-chapter-list"></div>
+    </section>
+
+  </main>
+
+  <!-- =====================================================================
+       TAB 2: DIARY / RULINGS (คลังคำพิพากษาและการค้นหาสำหรับ iPhone)
+       ===================================================================== -->
+  <main id="view-diary" class="ios-view">
+    <div class="ios-search-row">
+      <div class="ios-search-box">
+        <i data-lucide="search"></i>
+        <input type="search" id="diary-q" class="ios-search-input" placeholder="ค้นหาเลขฎีกา, คำสำคัญ, มาตรา...">
+      </div>
+      <button type="button" class="ios-icon-btn" id="btn-open-filter" style="height:40px; padding:0 12px;">
+        <i data-lucide="sliders-horizontal"></i>
+        <span>กรองหมวด</span>
+      </button>
+    </div>
+
+    <!-- Quick Filter Chips -->
+    <div class="chip-row" id="diary-quick-chips">
+      <button type="button" class="ios-chip is-active" data-diary-chip="all">ทั้งหมด</button>
+      <button type="button" class="ios-chip" data-diary-chip="part-1">ภาค ๑ ทั่วไป</button>
+      <button type="button" class="ios-chip" data-diary-chip="part-2">ภาค ๒ เฉพาะเรื่อง</button>
+      <button type="button" class="ios-chip" data-diary-chip="ga">🏛️ ประชุมใหญ่</button>
+      <button type="button" class="ios-chip" data-diary-chip="starred">⭐ เก็งสอบ</button>
+      <button type="button" class="ios-chip" data-diary-chip="review">📌 ทบทวนซ้ำ</button>
+      <button type="button" class="ios-chip" data-diary-chip="unread">⏳ ยังไม่อ่าน</button>
+    </div>
+
+    <!-- Active Filter Banner -->
+    <div id="diary-active-banner" style="display:none; background:var(--sage-100); border:1.5px solid var(--line-ink); border-radius:12px; padding:8px 12px; font-size:13px; align-items:center; justify-content:space-between; gap:8px;">
+      <span id="diary-active-text" style="font-weight:600;"></span>
+      <button type="button" class="ios-icon-btn" id="btn-clear-filter" style="height:26px; font-size:11.5px;">ล้างตัวกรอง</button>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; font-size:13px; color:var(--fg-3);">
+      <span id="diary-count-label">พบ 1,596 รายการ</span>
+      <span>แตะการ์ดเพื่ออ่านฉบับเต็ม</span>
+    </div>
+
+    <div class="ios-ruling-list" id="diary-list"></div>
+
+    <button type="button" class="ios-btn-primary" id="btn-diary-more" style="margin-top:6px;">
+      แสดงเพิ่มเติม (+20 รายการ)
+    </button>
+  </main>
+
+  <!-- =====================================================================
+       TAB 3: TOC (สารบัญละเอียด 645 หมวดย่อย)
+       ===================================================================== -->
+  <main id="view-toc" class="ios-view">
+    <div>
+      <h1 class="section-hd__title" style="font-size:20px;">สารบัญแยกประเภทคดีปกครอง</h1>
+      <p style="margin:2px 0 10px; font-size:13.5px; color:var(--fg-3);">
+        แตะชื่อบทเพื่อดูหมวดย่อย และแตะหมวดย่อยเพื่อเปิดอ่านคำพิพากษา
+      </p>
+      <div class="ios-search-box">
+        <i data-lucide="search"></i>
+        <input type="search" id="toc-q" class="ios-search-input" placeholder="ค้นหาหัวข้อในสารบัญ...">
+      </div>
+    </div>
+    <div id="toc-accordion-list"></div>
+  </main>
+
+  <!-- =====================================================================
+       TAB 4: PICKS (เก็งข้อสอบ & โน้ตของฉัน)
+       ===================================================================== -->
+  <main id="view-picks" class="ios-view">
+    <div>
+      <h1 class="section-hd__title" style="font-size:20px; margin-bottom:8px;">สมุดเก็งสอบ & โน้ตของฉัน</h1>
+      <div class="chip-row" id="picks-seg">
+        <button type="button" class="ios-chip is-active" data-pick-tab="starred">⭐ เก็งข้อสอบ</button>
+        <button type="button" class="ios-chip" data-pick-tab="review">📌 ต้องทบทวน</button>
+        <button type="button" class="ios-chip" data-pick-tab="notes">📝 มีโน้ตสรุป</button>
+        <button type="button" class="ios-chip" data-pick-tab="ga">🏛️ ประชุมใหญ่</button>
+        <button type="button" class="ios-chip" data-pick-tab="custom">✍️ ที่จดเพิ่มเอง</button>
+      </div>
+    </div>
+    <div class="ios-ruling-list" id="picks-list"></div>
+  </main>
+
+  <!-- =====================================================================
+       TAB 5: FLASHCARDS (โหมดการ์ดทบทวนสอบสำหรับ iPhone)
+       ===================================================================== -->
+  <main id="view-flashcards" class="ios-view">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+      <select id="fc-deck" class="ios-select" style="padding:7px 10px; font-size:14px; flex:1;">
+        <option value="all">สุ่มจากคลังทั้งหมด</option>
+        <option value="part-1">เฉพาะภาค ๑ · ภาคทั่วไป</option>
+        <option value="part-2">เฉพาะภาค ๒ · เฉพาะเรื่อง</option>
+        <option value="starred">เฉพาะ ⭐ เก็งข้อสอบ</option>
+        <option value="review">เฉพาะ 📌 ต้องทบทวนซ้ำ</option>
+        <option value="ga">เฉพาะ 🏛️ ประชุมใหญ่</option>
+      </select>
+      <button type="button" class="ios-icon-btn" id="btn-fc-shuffle" style="height:38px;">
+        <i data-lucide="shuffle"></i> สลับการ์ด
+      </button>
+    </div>
+
+    <div id="fc-stage"></div>
+  </main>
+
+  <!-- =================== iOS BOTTOM TAB BAR =================== -->
+  <nav class="ios-tabbar" aria-label="แถบเมนูหลัก">
+    <button type="button" class="ios-tab is-active" data-tab="home">
+      <i data-lucide="home"></i>
+      <span>ชั้นหนังสือ</span>
+    </button>
+    <button type="button" class="ios-tab" data-tab="diary">
+      <i data-lucide="book-open"></i>
+      <span>คำพิพากษา</span>
+      <span class="ios-tab__badge" id="tab-badge-total">1.5k</span>
+    </button>
+    <button type="button" class="ios-tab" data-tab="toc">
+      <i data-lucide="list-tree"></i>
+      <span>สารบัญ</span>
+    </button>
+    <button type="button" class="ios-tab" data-tab="picks">
+      <i data-lucide="star"></i>
+      <span>เก็งสอบ</span>
+      <span class="ios-tab__badge" id="tab-badge-star" style="display:none;">0</span>
+    </button>
+    <button type="button" class="ios-tab" data-tab="flashcards">
+      <i data-lucide="layers"></i>
+      <span>ทบทวน</span>
+    </button>
+  </nav>
+
+</div>
+
+<!-- =====================================================================
+     SHEET 1: Aa APPEARANCE & DATA TOOLS
+     ===================================================================== -->
+<div class="ios-sheet-backdrop" id="sheet-aa">
+  <div class="ios-sheet">
+    <div class="ios-sheet__grabber"></div>
+    <div class="ios-sheet__head">
+      <h3 class="ios-sheet__title">ตั้งค่าการอ่าน & จัดการคลังข้อมูล</h3>
+      <button type="button" class="ios-icon-btn" data-close-sheet="sheet-aa"><i data-lucide="x"></i></button>
+    </div>
+
+    <div class="ios-field">
+      <label>โหมดสีกระดาษ</label>
+      <div class="ios-segmented">
+        <button type="button" class="ios-seg-btn is-active" data-set-theme="light">☀️ กระดาษ</button>
+        <button type="button" class="ios-seg-btn" data-set-theme="sepia">📜 ถนอมสายตา</button>
+        <button type="button" class="ios-seg-btn" data-set-theme="dark">🌙 กลางคืน</button>
+      </div>
+    </div>
+
+    <div class="ios-field">
+      <label>ฟอนต์ภาษาไทยอ่านง่าย</label>
+      <div class="ios-segmented">
+        <button type="button" class="ios-seg-btn is-active" data-set-font="sarabun">Sarabun</button>
+        <button type="button" class="ios-seg-btn" data-set-font="plex">IBM Plex</button>
+        <button type="button" class="ios-seg-btn" data-set-font="noto">Noto Sans</button>
+      </div>
+    </div>
+
+    <div class="ios-field">
+      <label>ขนาดตัวอักษร</label>
+      <div class="ios-segmented">
+        <button type="button" class="ios-seg-btn" data-set-size="sm">A-</button>
+        <button type="button" class="ios-seg-btn is-active" data-set-size="md">A ปกติ</button>
+        <button type="button" class="ios-seg-btn" data-set-size="lg">A+</button>
+        <button type="button" class="ios-seg-btn" data-set-size="xl">A++</button>
+      </div>
+    </div>
+
+    <div class="ios-field">
+      <label style="display:flex; justify-content:space-between; align-items:center;">
+        <span>ไฮไลต์คำวินิจฉัยและมาตราอัตโนมัติ</span>
+        <input type="checkbox" id="toggle-highlight" checked style="width:20px; height:20px; accent-color:var(--forest-900);">
+      </label>
+    </div>
+
+    <hr style="border:none; border-top:1.5px dashed var(--line-soft); width:100%; margin:4px 0;">
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+      <button type="button" class="ios-icon-btn" id="btn-upload-pdf" style="height:40px;">
+        <i data-lucide="file-up"></i> อัปโหลด PDF เพิ่ม
+      </button>
+      <input type="file" id="input-pdf-upload" accept=".pdf" multiple style="display:none;">
+      <button type="button" class="ios-icon-btn" id="btn-export-data" style="height:40px;">
+        <i data-lucide="download"></i> สำรองข้อมูล (.json)
+      </button>
+    </div>
+
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-top:4px; font-size:12.5px; color:var(--fg-3);">
+      <a href="../index.html" style="color:var(--fg-2);">💻 สลับไปหน้าจอ Desktop</a>
+      <button type="button" class="ios-icon-btn" id="btn-toggle-frame" style="height:28px; font-size:11.5px;">ขยายเต็มจอ</button>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     SHEET 2: CHAPTER & SECTION FILTER SHEET
+     ===================================================================== -->
+<div class="ios-sheet-backdrop" id="sheet-filter">
+  <div class="ios-sheet">
+    <div class="ios-sheet__grabber"></div>
+    <div class="ios-sheet__head">
+      <h3 class="ios-sheet__title">กรองตามสารบัญหนังสือ</h3>
+      <button type="button" class="ios-icon-btn" data-close-sheet="sheet-filter"><i data-lucide="x"></i></button>
+    </div>
+
+    <div class="ios-field">
+      <label for="flt-part">๑. เลือกภาค</label>
+      <select id="flt-part" class="ios-select">
+        <option value="">ทุกภาค (ภาค ๑ และ ภาค ๒)</option>
+        <option value="part-1">ภาค ๑ · ภาคทั่วไป (5 บท)</option>
+        <option value="part-2">ภาค ๒ · เฉพาะเรื่อง (34 บท)</option>
+      </select>
+    </div>
+
+    <div class="ios-field">
+      <label for="flt-chapter">๒. เลือกบทที่</label>
+      <select id="flt-chapter" class="ios-select">
+        <option value="">ทุกบท (๓๙ บท)</option>
+      </select>
+    </div>
+
+    <div class="ios-field">
+      <label for="flt-section">๓. เลือกหมวดหมู่ย่อย</label>
+      <select id="flt-section" class="ios-select">
+        <option value="">ทุกหมวดหมู่ย่อย</option>
+      </select>
+    </div>
+
+    <div class="ios-field">
+      <label for="flt-type">๔. ประเภทคำวินิจฉัย</label>
+      <select id="flt-type" class="ios-select">
+        <option value="">ทุกประเภท</option>
+        <option value="คำพิพากษา">คำพิพากษาศาลปกครองสูงสุด</option>
+        <option value="คำสั่ง">คำสั่งศาลปกครองสูงสุด</option>
+        <option value="ga">ประชุมใหญ่ตุลาการศาลปกครองสูงสุด</option>
+      </select>
+    </div>
+
+    <div style="display:flex; gap:8px; margin-top:6px;">
+      <button type="button" class="ios-icon-btn" id="btn-reset-sheet-filter" style="flex:1; height:44px;">ล้างทั้งหมด</button>
+      <button type="button" class="ios-btn-primary" id="btn-apply-sheet-filter" style="flex:2;">ดูผลลัพธ์</button>
+    </div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     SHEET 3: FULL RULING READER & NOTE EDITOR SHEET
+     ===================================================================== -->
+<div class="ios-sheet-backdrop" id="sheet-reader">
+  <div class="ios-sheet" style="max-height:92dvh;">
+    <div class="ios-sheet__grabber"></div>
+    <div class="ios-sheet__head">
+      <span class="ios-cite-pill" id="reader-cite"></span>
+      <button type="button" class="ios-icon-btn" data-close-sheet="sheet-reader"><i data-lucide="x"></i> ปิด</button>
+    </div>
+    <div id="reader-body" style="display:flex; flex-direction:column; gap:12px;"></div>
+  </div>
+</div>
+
+<!-- =====================================================================
+     SHEET 4: ADD / EDIT RULING SHEET
+     ===================================================================== -->
+<div class="ios-sheet-backdrop" id="sheet-add">
+  <div class="ios-sheet" style="max-height:92dvh;">
+    <div class="ios-sheet__grabber"></div>
+    <div class="ios-sheet__head">
+      <h3 class="ios-sheet__title" id="add-sheet-title">บันทึกคำพิพากษาใหม่</h3>
+      <button type="button" class="ios-icon-btn" data-close-sheet="sheet-add"><i data-lucide="x"></i></button>
+    </div>
+
+    <form id="form-ios-add" style="display:flex; flex-direction:column; gap:10px;">
+      <input type="hidden" id="add-id" value="">
+
+      <div class="ios-field">
+        <label for="add-part">ภาคตามสารบัญ</label>
+        <select id="add-part" class="ios-select" required>
+          <option value="part-1">ภาค ๑ · ภาคทั่วไป</option>
+          <option value="part-2">ภาค ๒ · แนวคำวินิจฉัยเฉพาะเรื่อง</option>
+        </select>
+      </div>
+
+      <div class="ios-field">
+        <label for="add-chapter">บทที่</label>
+        <select id="add-chapter" class="ios-select" required></select>
+      </div>
+
+      <div class="ios-field">
+        <label for="add-section">หมวดหมู่ย่อย</label>
+        <select id="add-section" class="ios-select" required></select>
+      </div>
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+        <div class="ios-field">
+          <label for="add-type">ประเภท</label>
+          <select id="add-type" class="ios-select">
+            <option value="คำพิพากษา">คำพิพากษา</option>
+            <option value="คำสั่ง">คำสั่ง</option>
+          </select>
+        </div>
+        <div class="ios-field">
+          <label for="add-cite">เลขที่คำวินิจฉัย *</label>
+          <input type="text" id="add-cite" class="ios-input" placeholder="เช่น อ. 123/2568" required>
+        </div>
+      </div>
+
+      <label style="display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600;">
+        <input type="checkbox" id="add-ga" style="width:18px; height:18px; accent-color:var(--forest-900);">
+        <span>🏛️ คำวินิจฉัยที่ประชุมใหญ่ตุลาการฯ</span>
+      </label>
+
+      <div class="ios-field">
+        <label for="add-title">ประเด็นวินิจฉัย (สรุปสั้นๆ) *</label>
+        <input type="text" id="add-title" class="ios-input" placeholder="สรุปประเด็นหลัก 1 บรรทัด..." required>
+      </div>
+
+      <div class="ios-field">
+        <label for="add-principle">หลักกฎหมาย / แนวคำวินิจฉัยสำคัญ *</label>
+        <textarea id="add-principle" class="ios-textarea" placeholder="ดังนั้น..." required></textarea>
+      </div>
+
+      <div class="ios-field">
+        <label for="add-facts">ข้อเท็จจริงและเหตุผลฉบับเต็ม</label>
+        <textarea id="add-facts" class="ios-textarea" placeholder="รายละเอียดข้อเท็จจริง..."></textarea>
+      </div>
+
+      <div class="ios-field">
+        <label for="add-note">📝 โน้ตช่วยจำเตรียมสอบของฉัน</label>
+        <textarea id="add-note" class="ios-textarea" style="min-height:68px;" placeholder="จุดสังเกต / ข้อควรระวังในการทำข้อสอบ..."></textarea>
+      </div>
+
+      <button type="submit" class="ios-btn-primary ios-btn-primary--honey" style="margin-top:4px;">
+        <i data-lucide="save"></i> บันทึกเข้าสมุดเตรียมสอบ
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="../data/vol14_data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

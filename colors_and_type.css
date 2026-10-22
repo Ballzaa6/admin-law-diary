@@ -1,0 +1,277 @@
+/* =========================================================
+   Admin Law Diary — Design Tokens (Inspired by longtundiary.com)
+   Colors, Paper Surfaces, Ink Outlines, and Easy-to-Read Thai Typography
+   ========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=IBM+Plex+Sans+Thai+Looped:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Mitr:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Patrick+Hand&family=Sarabun:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  color-scheme: light;
+
+  /* ---------- Brand color primitives (longtundiary.com palette) ---------- */
+  /* Cream — the paper of the diary */
+  --cream-50:  #faf8ee;   /* lightest paper / card surface */
+  --cream-100: #f0f0e0;   /* primary paper / page background */
+  --cream-200: #e6e4d2;   /* hover paper */
+  --cream-300: #d8d4bc;   /* divider on cream */
+  --cream-400: #d0d0b8;   /* dustier paper */
+
+  /* Sage — the diary cover */
+  --sage-100: #cfd5c0;
+  --sage-200: #b8c0a8;
+  --sage-300: #a0a890;
+  --sage-400: #889878;    /* PRIMARY sage (logo cover) */
+  --sage-500: #6e7e60;    /* deeper sage / metadata */
+  --sage-600: #556547;
+
+  /* Forest — the ink */
+  --forest-700: #485840;
+  --forest-800: #384830;
+  --forest-900: #304828;  /* PRIMARY ink (outline & text) */
+  --forest-950: #1f2e1a;
+
+  /* Pen — pure ink */
+  --ink-black: #000000;
+
+  /* Accents — pulled from the diary world */
+  --accent-tomato: #c25d4f;   /* red pen stamp / ประชุมใหญ่ / เก็งสอบ */
+  --accent-honey:  #d6a64a;   /* sticky-note highlight / หลักกฎหมาย */
+  --accent-honey-soft: #f5ebd0; /* soft highlighter background for reading */
+  --accent-sky:    #6f8d9c;   /* cool note / คำสั่ง */
+  --accent-sky-soft: #e4eef2;
+
+  /* ---------- Semantic colors ---------- */
+  --bg-page:       var(--cream-100);
+  --bg-page-warm:  var(--cream-50);
+  --bg-banner:     var(--cream-400);
+  --bg-card:       var(--cream-50);
+  --bg-card-sage:  var(--sage-400);
+  --bg-divider:    var(--cream-300);
+
+  /* Foreground (text) */
+  --fg-1: var(--forest-900);   /* primary ink */
+  --fg-2: var(--forest-700);   /* secondary ink */
+  --fg-3: var(--sage-500);     /* muted ink / metadata */
+  --fg-on-sage: var(--cream-50);
+  --fg-on-forest: var(--cream-50);
+
+  /* Borders / outlines */
+  --line-ink: var(--forest-900);
+  --line-1: var(--line-ink);
+  --line-2: var(--sage-500);
+  --line-3: var(--cream-300);
+  --line-weight: 2px;
+
+  /* Status */
+  --status-gain: #5d8a5e;
+  --status-loss: var(--accent-tomato);
+  --status-warn: var(--accent-honey);
+  --status-info: var(--accent-sky);
+
+  /* Focus */
+  --focus-ring: 0 0 0 3px rgba(48, 72, 40, 0.3);
+
+  /* ---------- Typography stacks (Easy-to-read Thai focus) ---------- */
+  --font-reader-sarabun: 'Sarabun', system-ui, -apple-system, sans-serif;
+  --font-reader-plex:    'IBM Plex Sans Thai Looped', 'Sarabun', sans-serif;
+  --font-reader-noto:    'Noto Sans Thai', 'Sarabun', sans-serif;
+  --font-body:     var(--font-reader-sarabun);
+  --font-script:   'Caveat', 'Patrick Hand', 'Mitr', var(--font-body), sans-serif;
+  --font-hand:     'Patrick Hand', 'Caveat', 'Mitr', var(--font-body), sans-serif;
+  --font-display:  'Mitr', var(--font-body), system-ui, sans-serif;
+  --font-mono:     'JetBrains Mono', var(--font-body), ui-monospace, SFMono-Regular, monospace;
+
+  /* ---------- Reader Dynamic Scale ---------- */
+  --reader-font-size: 18px;
+  --reader-line-height: 1.78;
+
+  /* ---------- Type scale ---------- */
+  --fs-hero:     clamp(46px, 5vw, 78px);
+  --fs-display:  clamp(34px, 3.6vw, 52px);
+  --fs-h1:       38px;
+  --fs-h2:       30px;
+  --fs-h3:       23px;
+  --fs-h4:       19px;
+  --fs-body-lg:  20px;
+  --fs-body:     18px;
+  --fs-caption:  15px;
+  --fs-tiny:     13px;
+
+  --lh-tight:   1.2;
+  --lh-snug:    1.35;
+  --lh-normal:  1.65;
+  --lh-loose:   1.8;
+
+  /* ---------- Spacing & radii ---------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+
+  --radius-xs:  4px;
+  --radius-sm:  8px;
+  --radius-md:  14px;     /* book corner */
+  --radius-lg:  22px;     /* book cover corner */
+  --radius-pill: 999px;
+
+  /* ---------- Shadows (flat offset ink shadows) ---------- */
+  --shadow-page:      0 1px 0 var(--cream-300);
+  --shadow-card:      3px 4px 0 var(--line-ink);
+  --shadow-card-sm:   2px 3px 0 var(--line-ink);
+  --shadow-card-soft: 0 6px 18px rgba(48, 72, 40, 0.08);
+  --shadow-stack:     4px 6px 0 var(--sage-500), 8px 12px 0 var(--line-ink);
+  --shadow-stack-hover: 6px 8px 0 var(--sage-500), 10px 14px 0 var(--line-ink);
+  --shadow-press:     1px 1px 0 var(--line-ink);
+
+  /* ---------- Motion ---------- */
+  --ease-paper: cubic-bezier(.2, .8, .2, 1);
+  --ease-flip:  cubic-bezier(.65, 0, .35, 1);
+  --dur-fast:   140ms;
+  --dur-base:   220ms;
+  --dur-slow:   420ms;
+
+  /* ---------- Footer ---------- */
+  --foot-bg:  var(--forest-900);
+  --foot-ink: var(--cream-50);
+}
+
+/* Font switcher overrides */
+html[data-font="sarabun"] { --font-body: var(--font-reader-sarabun); }
+html[data-font="plex"]    { --font-body: var(--font-reader-plex); }
+html[data-font="noto"]    { --font-body: var(--font-reader-noto); }
+
+html[data-size="sm"] { --reader-font-size: 16.5px; --fs-body: 16.5px; }
+html[data-size="md"] { --reader-font-size: 18.5px; --fs-body: 18px; }
+html[data-size="lg"] { --reader-font-size: 20.5px; --fs-body: 19.5px; }
+html[data-size="xl"] { --reader-font-size: 22.5px; --fs-body: 21px; }
+
+/* =========================================================
+   Dark theme — "Night Ledger" (from longtundiary.com)
+   ========================================================= */
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --cream-50:  #181b12;   /* card / elevated paper */
+  --cream-100: #0f110c;   /* page background */
+  --cream-200: #232818;   /* hover paper */
+  --cream-300: #31371f;   /* divider */
+  --cream-400: #14170f;   /* dustier paper */
+
+  --sage-100: #1d2413;
+  --sage-200: #37402a;
+  --sage-300: #4a573a;
+  --sage-400: #5b6b46;    /* PRIMARY sage accent */
+  --sage-500: #a9b191;    /* muted ink / metadata — light on dark */
+  --sage-600: #c6cdae;
+
+  --forest-700: #c9c5ac;
+  --forest-800: #ded9c0;
+  --forest-900: #efe9d3;  /* PRIMARY text ink */
+  --forest-950: #f8f4e4;
+
+  --ink-black: #ffffff;
+
+  --fg-on-sage:   #f2efdd;
+  --fg-on-forest: #f2efdd;
+
+  --line-ink: #7d9163;
+
+  --accent-tomato: #d0705f;
+  --accent-honey:  #d9ac52;
+  --accent-honey-soft: #262214;
+  --accent-sky:    #8fb0c1;
+  --accent-sky-soft: #172229;
+
+  --status-gain: #82b183;
+
+  --focus-ring: 0 0 0 3px rgba(160, 185, 130, 0.4);
+  --shadow-card-soft: 0 6px 18px rgba(0, 0, 0, 0.45);
+
+  --foot-bg:  #0b0d07;
+  --foot-ink: #efe9d3;
+}
+
+/* =========================================================
+   Base Semantic Elements
+   ========================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-page);
+  color: var(--fg-1);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-tight);
+  color: var(--fg-1);
+}
+
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-h3);
+  line-height: var(--lh-snug);
+  color: var(--fg-1);
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: var(--lh-normal);
+  color: var(--fg-2);
+}
+
+a {
+  color: var(--forest-900);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--sage-300);
+  transition: text-decoration-color var(--dur-base) var(--ease-paper);
+}
+a:hover {
+  text-decoration-color: var(--forest-900);
+}
+
+hr {
+  border: none;
+  border-top: 1px dashed var(--line-2);
+  margin: var(--space-6) 0;
+}
+
+.handletter {
+  font-family: var(--font-script);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.ink-outline {
+  border: var(--line-weight) solid var(--line-1);
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}

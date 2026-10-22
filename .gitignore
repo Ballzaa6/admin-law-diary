@@ -1,0 +1,6 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.pdf
+data/vol14_data.json
+data/user_state.json
